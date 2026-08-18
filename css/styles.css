@@ -388,6 +388,13 @@ body.is-menu-open .nav-backdrop {
   border-radius: 50%;
 }
 
+.hero__facts {
+  margin: 0 0 16px;
+  font-size: 13px;
+  color: var(--muted);
+  letter-spacing: 0.01em;
+}
+
 .hero__price {
   margin: 0 0 20px;
   font-size: 18px;
@@ -568,6 +575,17 @@ a.card.doc-file:hover {
 .form {
   display: grid;
   gap: 12px;
+}
+
+.form--narrow {
+  max-width: 560px;
+}
+
+.price-more {
+  display: inline-block;
+  margin-top: 16px;
+  font-weight: 600;
+  color: var(--brand);
 }
 
 .form label {

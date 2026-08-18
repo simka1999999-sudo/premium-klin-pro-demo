@@ -51,19 +51,20 @@
     statusEl.textContent = text;
   }
 
-  function leadLines(name, phone, service, comment) {
+  function leadLines(org, name, phone, service, comment) {
     return [
-      "Заявка с сайта Премиум Клин Про",
-      "Имя: " + name,
+      "Запрос КП с сайта Премиум Клин Про",
+      "Организация: " + org,
+      "Контакт: " + name,
       "Телефон: +" + phone,
-      "Услуга: " + service,
-      "Комментарий: " + comment
+      "Объект: " + service,
+      "ТЗ: " + comment
     ].join("\n");
   }
 
   function mailtoFallback(text) {
     window.location.href = "mailto:" + MAIL_TO + "?subject=" +
-      encodeURIComponent("Заявка с сайта Премиум Клин Про") +
+      encodeURIComponent("Запрос КП с сайта Премиум Клин Про") +
       "&body=" + encodeURIComponent(text);
   }
 
@@ -77,6 +78,7 @@
         return;
       }
       var payload = {
+        organization: String(data.get("organization") || "").trim(),
         name: String(data.get("name") || "").trim(),
         phone: phone,
         service: String(data.get("service") || "").trim(),
@@ -84,7 +86,7 @@
         website: String(data.get("website") || ""),
         agree: true
       };
-      var text = leadLines(payload.name || "—", phone, payload.service || "—", payload.comment || "—");
+      var text = leadLines(payload.organization || "—", payload.name || "—", phone, payload.service || "—", payload.comment || "—");
       var btn = form.querySelector("[type=submit]");
       if (btn) btn.disabled = true;
       setStatus(true, "Отправляем заявку…");
@@ -102,7 +104,7 @@
           });
         })
         .then(function () {
-          setStatus(true, "Заявка ушла на почту и в Telegram. Мы свяжемся с вами.");
+          setStatus(true, "Запрос ушёл. Подготовим КП и ответим на почту.");
           form.reset();
         })
         .catch(function () {
