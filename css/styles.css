@@ -443,6 +443,26 @@ body.is-menu-open .nav-backdrop {
   color: var(--brand);
 }
 
+a.card.doc-file {
+  text-decoration: none;
+  color: inherit;
+}
+
+a.card.doc-file:hover {
+  border-color: var(--brand);
+}
+
+.doc-file__links {
+  display: flex;
+  gap: 16px;
+  margin: 12px 0 0;
+}
+
+.doc-file__links a {
+  font-weight: 600;
+  color: var(--brand);
+}
+
 /* Prices */
 
 .price-block + .price-block {
