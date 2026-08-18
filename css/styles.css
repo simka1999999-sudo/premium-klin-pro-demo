@@ -587,46 +587,80 @@ a.card.doc-file:hover {
 
 .form {
   display: grid;
-  gap: 12px;
+  gap: 16px;
 }
 
-.form--narrow {
+.form--card {
   max-width: 560px;
+  padding: 24px;
+  background: var(--paper);
+  color: var(--ink);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  box-shadow: var(--shadow);
 }
 
-.price-more {
-  display: inline-block;
-  margin-top: 16px;
-  font-weight: 600;
-  color: var(--brand);
+.form__row {
+  display: grid;
+  gap: 16px;
 }
 
 .form label {
   display: grid;
-  gap: 6px;
+  gap: 8px;
   font-size: 13px;
   font-weight: 600;
+  min-width: 0;
+  color: var(--ink);
+}
+
+.form__caption {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 8px;
 }
 
 .form__hint {
   font-weight: 400;
-  color: #c5e8ee;
+  font-size: 12px;
+  color: var(--muted);
 }
 
 .form input,
 .form select,
 .form textarea {
   width: 100%;
-  min-height: 48px;
-  padding: 12px 14px;
+  min-height: 44px;
+  padding: 10px 12px;
   border: 1px solid var(--line);
   border-radius: var(--radius);
   background: var(--white);
   color: var(--ink);
 }
 
+.form input::placeholder,
+.form textarea::placeholder {
+  color: #7a9aa3;
+}
+
+.form select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%23246078' d='M1 1.5 6 6.5 11 1.5'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  padding-right: 40px;
+}
+
+.form input:focus,
+.form select:focus,
+.form textarea:focus {
+  outline: 2px solid var(--brand);
+  outline-offset: 1px;
+  border-color: var(--brand);
+}
+
 .form textarea {
-  min-height: 96px;
+  min-height: 88px;
   resize: vertical;
 }
 
@@ -638,12 +672,8 @@ a.card.doc-file:hover {
   color: var(--muted);
 }
 
-.section--brand .form__check {
-  color: #e8f6f8;
-}
-
-.section--brand .form__check a {
-  color: #fff;
+.form__check a {
+  color: var(--brand-dark);
   text-decoration: underline;
   text-underline-offset: 2px;
 }
@@ -653,10 +683,16 @@ a.card.doc-file:hover {
   height: 18px;
   min-height: 0;
   margin-top: 2px;
+  accent-color: var(--brand);
+}
+
+.form .btn {
+  width: 100%;
 }
 
 .form__status {
   min-height: 1.4em;
+  margin: 0;
   font-size: 14px;
 }
 
@@ -668,12 +704,21 @@ a.card.doc-file:hover {
   color: #8a2a2a;
 }
 
-.section--brand .form__status.is-ok {
-  color: #e5fff0;
+.price-more {
+  display: inline-block;
+  margin-top: 16px;
+  font-weight: 600;
+  color: var(--brand);
 }
 
-.section--brand .form__status.is-err {
-  color: #ffd6d6;
+@media (min-width: 560px) {
+  .form--card {
+    padding: 28px;
+  }
+
+  .form__row {
+    grid-template-columns: 1fr 1fr;
+  }
 }
 
 /* Contacts */
