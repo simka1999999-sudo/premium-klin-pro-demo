@@ -117,8 +117,9 @@ textarea {
   color: #c5e8ee;
 }
 
+.section--brand .lead,
 .lead--on-brand {
-  color: #d7eef2;
+  color: #e8f6f8;
 }
 
 .contacts__title {
