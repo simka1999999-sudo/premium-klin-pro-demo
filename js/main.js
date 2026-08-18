@@ -6,6 +6,7 @@
   var year = document.querySelector("[data-year]");
   var form = document.querySelector("[data-lead-form]");
   var statusEl = document.querySelector("[data-form-status]");
+  var MAIL_TO = "premiumclean@prmclean.ru";
 
   if (year) year.textContent = String(new Date().getFullYear());
 
@@ -44,31 +45,73 @@
     return d;
   }
 
+  function setStatus(ok, text) {
+    if (!statusEl) return;
+    statusEl.className = "form__status " + (ok ? "is-ok" : "is-err");
+    statusEl.textContent = text;
+  }
+
+  function leadLines(name, phone, service, comment) {
+    return [
+      "Заявка с сайта Премиум Клин Про",
+      "Имя: " + name,
+      "Телефон: +" + phone,
+      "Услуга: " + service,
+      "Комментарий: " + comment
+    ].join("\n");
+  }
+
+  function mailtoFallback(text) {
+    window.location.href = "mailto:" + MAIL_TO + "?subject=" +
+      encodeURIComponent("Заявка с сайта Премиум Клин Про") +
+      "&body=" + encodeURIComponent(text);
+  }
+
   if (form) {
     form.addEventListener("submit", function (e) {
       e.preventDefault();
       var data = new FormData(form);
       var phone = digitsPhone(data.get("phone"));
       if (phone.length !== 11) {
-        if (statusEl) {
-          statusEl.className = "form__status is-err";
-          statusEl.textContent = "Укажите телефон полностью";
-        }
+        setStatus(false, "Укажите телефон полностью");
         return;
       }
-      var lines = [
-        "Заявка с сайта Премиум Клин Про",
-        "Имя: " + (data.get("name") || "—"),
-        "Телефон: +" + phone,
-        "Услуга: " + (data.get("service") || "—"),
-        "Комментарий: " + (data.get("comment") || "—")
-      ];
-      var url = "https://wa.me/79855487003?text=" + encodeURIComponent(lines.join("\n"));
-      if (statusEl) {
-        statusEl.className = "form__status is-ok";
-        statusEl.textContent = "Открываем WhatsApp…";
-      }
-      window.open(url, "_blank", "noopener");
+      var payload = {
+        name: String(data.get("name") || "").trim(),
+        phone: phone,
+        service: String(data.get("service") || "").trim(),
+        comment: String(data.get("comment") || "").trim(),
+        website: String(data.get("website") || ""),
+        agree: true
+      };
+      var text = leadLines(payload.name || "—", phone, payload.service || "—", payload.comment || "—");
+      var btn = form.querySelector("[type=submit]");
+      if (btn) btn.disabled = true;
+      setStatus(true, "Отправляем заявку…");
+
+      var endpoint = form.getAttribute("data-endpoint") || "/api/lead";
+      fetch(endpoint, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+      })
+        .then(function (r) {
+          return r.json().then(function (j) {
+            if (!r.ok || !j.ok) throw new Error(j.error || "fail");
+            return j;
+          });
+        })
+        .then(function () {
+          setStatus(true, "Заявка ушла на почту и в Telegram. Мы свяжемся с вами.");
+          form.reset();
+        })
+        .catch(function () {
+          setStatus(true, "Открываем письмо на почту компании…");
+          mailtoFallback(text);
+        })
+        .finally(function () {
+          if (btn) btn.disabled = false;
+        });
     });
   }
 })();

@@ -612,6 +612,14 @@ body.is-menu-open .nav-backdrop {
   color: #8a2a2a;
 }
 
+.section--brand .form__status.is-ok {
+  color: #e5fff0;
+}
+
+.section--brand .form__status.is-err {
+  color: #ffd6d6;
+}
+
 /* Contacts */
 
 .contacts {
