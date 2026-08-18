@@ -326,10 +326,14 @@ body.is-menu-open .nav-backdrop {
   font-weight: 500;
 }
 
-.nav__cta {
+.nav a.btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   margin-top: 20px;
-  text-align: center;
+  padding: 12px 22px;
   border-bottom: 0;
+  line-height: 1;
 }
 
 /* Hero */
@@ -703,10 +707,11 @@ body.is-menu-open .nav-backdrop {
     font-size: 14px;
   }
 
-  .nav__cta {
+  .nav a.btn {
+    display: inline-flex;
     margin: 0;
     min-height: 40px;
-    padding: 8px 14px;
+    padding: 0 16px;
   }
 
   .section--brand {
