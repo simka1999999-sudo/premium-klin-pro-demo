@@ -395,20 +395,32 @@ body.is-menu-open .nav-backdrop {
   letter-spacing: 0.01em;
 }
 
-.hero__price {
-  margin: 0 0 20px;
+.hero__price,
+.hero__prices {
+  margin: 0 0 8px;
   font-size: 18px;
   font-weight: 600;
 }
 
-.hero__price strong {
+.hero__prices {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 24px;
+}
+
+.hero__prices p {
+  margin: 0;
+}
+
+.hero__price strong,
+.hero__prices strong {
   color: var(--brand);
 }
 
 .hero__note {
-  margin: 16px 0 0;
-  font-size: 13px;
-  color: var(--muted);
+  margin: 0 0 20px;
+  font-size: 14px;
+  color: var(--brand-dark);
 }
 
 /* Cards */
@@ -593,6 +605,11 @@ a.card.doc-file:hover {
   gap: 6px;
   font-size: 13px;
   font-weight: 600;
+}
+
+.form__hint {
+  font-weight: 400;
+  color: #c5e8ee;
 }
 
 .form input,

@@ -53,18 +53,18 @@
 
   function leadLines(org, name, phone, service, comment) {
     return [
-      "Запрос КП с сайта Премиум Клин Про",
-      "Организация: " + org,
-      "Контакт: " + name,
+      "Заявка с сайта Премиум Клин Про",
+      "Имя: " + name,
       "Телефон: +" + phone,
-      "Объект: " + service,
-      "ТЗ: " + comment
+      "Организация: " + org,
+      "Что убрать: " + service,
+      "Детали: " + comment
     ].join("\n");
   }
 
   function mailtoFallback(text) {
     window.location.href = "mailto:" + MAIL_TO + "?subject=" +
-      encodeURIComponent("Запрос КП с сайта Премиум Клин Про") +
+      encodeURIComponent("Заявка с сайта Премиум Клин Про") +
       "&body=" + encodeURIComponent(text);
   }
 
@@ -104,7 +104,7 @@
           });
         })
         .then(function () {
-          setStatus(true, "Запрос ушёл. Подготовим КП и ответим на почту.");
+          setStatus(true, "Заявка ушла. Перезвоним или напишем.");
           form.reset();
         })
         .catch(function () {
